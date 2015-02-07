@@ -1,9 +1,11 @@
-/*Create 107 Level Order II
-*1. What's done
-*My solution: level order = bfs. Visit a node, store the value, and push two children to the queue. 
+/* 107 Level Order II
+* 1. What's done
+* My solution: level order = bfs. Visit a node, store the value, and push two children to the queue. 
 *
-*2. Problems encountered
-*How to publish list for each level? (When to start a new list in the while loop)
+* 2. Problems encountered
+* How to publish list for each level? (When to start a new list in the while loop)
+* 3. To do 
+* major changes, add comments please!! please hurry!
 */
 
 /**
@@ -17,30 +19,35 @@
  */
 public class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> rst = new ArrayList<List<Integer>>(); 
-        List<Integer> list = new ArrayList<Integer>(); 
-        if(root==null) return rst;
-
-        Queue<TreeNode> q = new LinkedList<TreeNode>();
-        //add root to queue
-        q.add(root); 
-        while(!q.isEmpty()){
-            root = q.poll();
-            list.add(root.val);
-
-            if(q.isEmpty()) {
-                rst.add(list); 
-                list = new ArrayList<Integer>();
-
-            }
-            if(root.left!=null) q.add(root.left); 
-            if(root.right!=null) q.add(root.right); 
-        }
+        List<List<Integer>> rst = new ArrayList<List<Integer>>();
+        if(root==null) return rst; 
         
-        for(int i=0; i<rst.size()/2; i++){
-            List<Integer> temp = rst.get(i); 
-            rst.set(i, rst.get(rst.size()-1-i));
-            rst.set(rst.size()-1-i, temp);
+        //root is not null
+        Queue<TreeNode> q = new LinkedList<TreeNode>();// ? 
+        q.offer(root); //? offer vs. add
+        int currLevelNodeNum = 1; 
+        int nextLevelNodeNum = 0; 
+        
+        while (currLevelNodeNum != 0 ){
+            ArrayList<Integer> levelList = new List<Integer>(); 
+            nextLevelNodeNum = 0; 
+            
+            while(currLevelNodeNum != 0){
+                TreeNode node = q.poll(); 
+                currLevelNodeNum--; 
+                
+                if(node.left != null) {
+                    q.offer(node.left); 
+                    nextLevelNodeNum++; 
+                }
+                if(node.right != null){
+                    q.offer(node.right); 
+                    nextLevelNodeNum ++; 
+                }
+                rst.add(0, levelList);//!!
+                currLevelNodeNum = nextLevelNodeNum;//!!recursive的思想
+                
+            }
         }
         return rst; 
         
