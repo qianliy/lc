@@ -1,3 +1,11 @@
+/*Create 107 Level Order II
+*1. What's done
+*My solution: level order = bfs. Visit a node, store the value, and push two children to the queue. 
+*
+*2. Problems encountered
+*How to publish list for each level? (When to start a new list in the while loop)
+*/
+
 /**
  * Definition for binary tree
  * public class TreeNode {
